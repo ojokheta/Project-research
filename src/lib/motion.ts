@@ -1,21 +1,24 @@
-export const appleSpring = {
-  tension: 280,
-  friction: 30,
-  mass: 0.8,
-} as const
+/**
+ * Spring vocabulary.
+ *
+ * Tuned toward Apple's documented SwiftUI defaults — the default spring is
+ * response 0.55s with damping fraction 1.0 (critically damped, no overshoot),
+ * and `easeInOut` resolves at 0.35s. These map to the react-spring config
+ * pairs below, so motion on the site feels native rather than bouncy.
+ */
 
-export const softSpring = {
-  tension: 180,
-  friction: 26,
-  mass: 1,
-} as const
+/** Critically damped, settles in ~0.55s. The default for entrances. */
+export const settle = { tension: 190, friction: 31, mass: 1 } as const
 
-export const pressSpring = {
-  tension: 420,
-  friction: 22,
-  mass: 0.6,
-} as const
+/** Slightly quicker and softer — for stacked / staggered reveals. */
+export const drift = { tension: 120, friction: 24, mass: 1 } as const
 
-export const prefersReducedMotion = () =>
-  typeof window !== 'undefined' &&
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+/** Controls and press states. Fast, minimal travel. */
+export const snap = { tension: 420, friction: 34, mass: 0.7 } as const
+
+/** Scroll-linked values. Feels weighted rather than twitchy. */
+export const glide = { tension: 120, friction: 26, mass: 0.9 } as const
+
+export const stagger = (index: number, step = 70) => index * step
+
+export { useReducedMotion } from '@react-spring/web'

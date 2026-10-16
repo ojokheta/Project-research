@@ -1,22 +1,41 @@
 import { useEffect, useRef } from 'react'
-import { prefersReducedMotion } from '../lib/motion'
+import { useReducedMotion } from '@react-spring/web'
 
+/**
+ * The atmosphere layer.
+ *
+ * Vanta FOG runs at low opacity behind everything so it reads as depth rather
+ * than content — it should never compete with the message. Disabled entirely
+ * for reduced-motion users and skipped on low-powered viewports.
+ */
 export function VantaBackground() {
   const ref = useRef<HTMLDivElement>(null)
+  const reduced = useReducedMotion()
 
   useEffect(() => {
-    if (!ref.current || prefersReducedMotion()) return
+    const el = ref.current
+    if (!el || reduced) return
+    if (window.matchMedia('(max-width: 640px)').matches) return
 
     let destroyed = false
     let effect: { destroy: () => void } | undefined
 
     const start = async () => {
-      const [{ default: FOG }, THREE] = await Promise.all([
+      const [fogModule, THREE] = await Promise.all([
         import('vanta/dist/vanta.fog.min'),
         import('three'),
       ])
       if (destroyed || !ref.current) return
       window.THREE = THREE
+
+      /*
+       * The UMD build exports `{ default: factory }`, and bundler interop may
+       * hand that object straight back instead of unwrapping it — so dig for
+       * the actual factory rather than trusting one shape.
+       */
+      const FOG = unwrapFog(fogModule)
+      if (!FOG) return
+
       effect = FOG({
         el: ref.current,
         THREE,
@@ -25,13 +44,13 @@ export function VantaBackground() {
         gyroControls: false,
         minHeight: 200,
         minWidth: 200,
-        highlightColor: 0x8aa63a,
-        midtoneColor: 0x0c4a34,
-        lowlightColor: 0x052015,
-        baseColor: 0x03140e,
-        blurFactor: 0.62,
-        speed: 0.35,
-        zoom: 0.55,
+        highlightColor: 0x2f6b3f,
+        midtoneColor: 0x0d4a33,
+        lowlightColor: 0x06251a,
+        baseColor: 0x04140d,
+        blurFactor: 0.7,
+        speed: 0.28,
+        zoom: 0.62,
       })
     }
 
@@ -41,7 +60,9 @@ export function VantaBackground() {
       destroyed = true
       effect?.destroy()
     }
-  }, [])
+  }, [reduced])
+
+  if (reduced) return null
 
   return (
     <>
