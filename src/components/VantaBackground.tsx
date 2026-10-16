@@ -1,6 +1,26 @@
 import { useEffect, useRef } from 'react'
 import { useReducedMotion } from '@react-spring/web'
 
+type VantaEffect = { destroy: () => void }
+type FogModule = Record<string, unknown>
+
+/**
+ * The vanta UMD bundle exports `{ default: factory }`; depending on bundler
+ * interop the namespace may or may not already be unwrapped. Dig for the
+ * factory instead of trusting a single shape.
+ */
+function unwrapFog(mod: unknown): ((opts: Record<string, unknown>) => VantaEffect) | null {
+  let candidate: unknown = mod
+  for (let depth = 0; depth < 3; depth += 1) {
+    if (typeof candidate === 'function') {
+      return candidate as (opts: Record<string, unknown>) => VantaEffect
+    }
+    if (!candidate || typeof candidate !== 'object') return null
+    candidate = (candidate as FogModule).default
+  }
+  return null
+}
+
 /**
  * The atmosphere layer.
  *
