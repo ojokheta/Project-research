@@ -1505,6 +1505,13 @@ body,
     z-index: 2;
   }
 
+  /* On mobile the card is sticky over scrolling steps — give it an opaque
+     backing so text passing underneath is fully occluded, not visible
+     through the translucent gradient. */
+  .story__panel {
+    background: linear-gradient(160deg, #0b1f16 0%, #061510 100%);
+  }
+
   .story__giant {
     font-size: clamp(56px, 16vw, 96px);
   }
