@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useReducedMotion } from '@react-spring/web'
+import { MOBILE_QUERY } from '../hooks/useIsMobile'
 
 type VantaEffect = { destroy: () => void }
 type FogModule = Record<string, unknown>
@@ -35,7 +36,9 @@ export function VantaBackground() {
   useEffect(() => {
     const el = ref.current
     if (!el || reduced) return
-    if (window.matchMedia('(max-width: 640px)').matches) return
+    // the fog is a desktop luxury — on mobile the backdrop imagery carries the
+    // atmosphere and we skip the three.js cost entirely
+    if (window.matchMedia(MOBILE_QUERY).matches) return
 
     let destroyed = false
     let effect: { destroy: () => void } | undefined
