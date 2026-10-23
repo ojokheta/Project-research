@@ -18,8 +18,13 @@ export function useActiveSection(ids: string[], enabled = true): string {
   const [active, setActive] = useState(ids[0] ?? '')
   const activeRef = useRef(ids[0] ?? '')
 
+  // the effect depends on the *contents* of ids, not the array identity, so
+  // callers can rebuild the array every render without re-subscribing
+  const key = ids.join('|')
+
   useEffect(() => {
     if (!enabled) return
+    const ids = key ? key.split('|') : []
 
     const settle = (id: string) => {
       if (!id || id === activeRef.current) return
@@ -87,7 +92,7 @@ export function useActiveSection(ids: string[], enabled = true): string {
       window.clearTimeout(id)
       if (raf) cancelAnimationFrame(raf)
     }
-  }, [enabled, ids.join('|')])
+  }, [enabled, key])
 
   return active
 }

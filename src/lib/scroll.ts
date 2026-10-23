@@ -44,7 +44,7 @@ export function animateScrollTo(
   cancelInFlight = null
 
   if (prefersReducedMotion()) {
-    window.scrollTo(0, target)
+    window.scrollTo({ top: target, left: 0, behavior: 'instant' })
     return
   }
 
@@ -57,7 +57,10 @@ export function animateScrollTo(
 
   const tick = (now: number) => {
     const t = Math.min(1, (now - start) / duration)
-    window.scrollTo(0, from + delta * ease(t))
+    // force 'instant': without it the html element's `scroll-behavior: smooth`
+    // reinterprets each step as a native smooth scroll, and that animation is
+    // unreliable (it never starts in some webviews), leaving the page frozen.
+    window.scrollTo({ top: from + delta * ease(t), left: 0, behavior: 'instant' })
     if (t < 1) raf = requestAnimationFrame(tick)
   }
 

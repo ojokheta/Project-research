@@ -48,7 +48,9 @@ function scrollToSection(id: string, behavior: ScrollBehavior) {
     return true
   }
   const top = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET
-  window.scrollTo({ top: Math.max(0, top), behavior })
+  // 'instant', not 'auto': 'auto' defers to html's `scroll-behavior: smooth`,
+  // which is unreliable in embedded webviews.
+  window.scrollTo({ top: Math.max(0, top), left: 0, behavior: 'instant' })
   return true
 }
 
@@ -86,7 +88,7 @@ export function Layout() {
     if (isMobile) {
       scrollToSection(pathToSectionId(pathname), reduced ? 'auto' : 'smooth')
     } else {
-      window.scrollTo({ top: 0, behavior: 'auto' })
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     }
   }, [pathname, isMobile, reduced])
 

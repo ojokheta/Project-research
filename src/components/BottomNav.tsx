@@ -75,7 +75,7 @@ export function BottomNav() {
       // handles reduced-motion and clamps to the scrollable range
       scrollToId(id, 96)
     },
-    [moveTo, reduced],
+    [moveTo],
   )
 
   return (
