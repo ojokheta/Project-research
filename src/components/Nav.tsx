@@ -16,7 +16,7 @@ import { snap } from '../lib/motion'
  */
 const navLinks = [
   { to: '/about', label: 'About' },
-  { to: '/purpose', label: 'Purpose' },
+  { to: '/resources', label: 'Resources' },
   { to: '/help', label: 'Get help' },
   { to: '/involve', label: 'Get involved' },
 ]

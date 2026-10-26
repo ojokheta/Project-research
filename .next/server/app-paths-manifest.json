@@ -1,0 +1,7 @@
+{
+  "/page": "app/page.js",
+  "/about/page": "app/about/page.js",
+  "/involve/page": "app/involve/page.js",
+  "/help/page": "app/help/page.js",
+  "/purpose/page": "app/purpose/page.js"
+}

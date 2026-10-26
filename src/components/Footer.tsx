@@ -23,6 +23,7 @@ export function Footer() {
             <h4>Move</h4>
             <Link to="/">Home</Link>
             <Link to="/about">About RESET</Link>
+            <Link to="/resources">Resources &amp; directory</Link>
             <Link to="/purpose">Vision &amp; purpose</Link>
             <Link to="/involve">Become a peer advocate</Link>
           </div>

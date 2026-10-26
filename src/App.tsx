@@ -6,6 +6,7 @@ import { Purpose } from './pages/Purpose'
 import { Help } from './pages/Help'
 import { Involve } from './pages/Involve'
 import { Contact } from './pages/Contact'
+import { Resources } from './pages/Resources'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="about" element={<About />} />
           <Route path="purpose" element={<Purpose />} />
           <Route path="help" element={<Help />} />
+          <Route path="resources" element={<Resources />} />
           <Route path="involve" element={<Involve />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<Navigate to="/" replace />} />

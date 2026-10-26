@@ -99,7 +99,7 @@ export function Layout() {
       <ScrollProgress />
       <div className="site">
         <Nav />
-        {isMobile ? (
+        {isMobile && pathname !== '/resources' ? (
           <animated.main id="main" style={reducedStyles}>
             <ContinuousPage />
           </animated.main>
