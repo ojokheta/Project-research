@@ -2,37 +2,30 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useLayoutEffect, useRef, useState, type ReactNode } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
+import { Chat, HandHeart, Home, Lightbulb, Target, Users, type IconComponent } from 'reicon-react'
 
-type DockItem = { href: string; label: string; icon: ReactNode }
+type DockItem = { href: string; label: string; Icon: IconComponent }
 
-/* Outline icons, 24px grid — same weight as the reference dock. */
-const svg = (children: ReactNode) => (
-  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-    {children}
-  </svg>
-)
-
+/* Icons from Reicon (reicon.dev) — MIT-licensed outline set on a 24px grid,
+   matching the reference dock's light stroke weight. */
 const ITEMS: DockItem[] = [
-  { href: '/', label: 'Home', icon: svg(<><path d="M3 10.2 12 3l9 7.2V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="M9 21v-7h6v7" /></>) },
-  { href: '/about', label: 'About', icon: svg(<><circle cx="12" cy="12" r="8.6" /><path d="M12 11.2v4.9" /><path d="M12 7.9h.01" /></>) },
-  { href: '/purpose', label: 'Purpose', icon: svg(<><circle cx="12" cy="12" r="8.6" /><circle cx="12" cy="12" r="4.5" /><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none" /></>) },
-  { href: '/help', label: 'Get help', icon: svg(<><circle cx="12" cy="12" r="8.6" /><circle cx="12" cy="12" r="3.6" /><path d="m5.9 5.9 3.7 3.7M18.1 5.9l-3.7 3.7M5.9 18.1l3.7-3.7M18.1 18.1l-3.7-3.7" /></>) },
-  { href: '/involve', label: 'Get involved', icon: svg(<><circle cx="9.2" cy="8.6" r="3.4" /><path d="M3.6 19.6c.6-3.2 2.9-5.1 5.6-5.1s5 1.9 5.6 5.1" /><path d="M16.2 5.8a3.4 3.4 0 0 1 0 6.5" /><path d="M17.7 15c1.7.8 2.7 2.4 3 4.6" /></>) },
+  { href: '/', label: 'Home', Icon: Home },
+  { href: '/about', label: 'About', Icon: Lightbulb },
+  { href: '/purpose', label: 'Purpose', Icon: Target },
+  { href: '/help', label: 'Get help', Icon: HandHeart },
+  { href: '/involve', label: 'Get involved', Icon: Users },
 ]
 
-const chatIcon = svg(
-  <><path d="M20.4 11.7c0 4.1-3.8 7.5-8.4 7.5-1.1 0-2.2-.2-3.2-.6L4.2 20l1.4-3.5c-1.3-1.3-2.1-3-2.1-4.8 0-4.1 3.8-7.5 8.4-7.5s8.5 3.4 8.5 7.5Z" /><circle cx="8.7" cy="11.7" r=".95" fill="currentColor" stroke="none" /><circle cx="12" cy="11.7" r=".95" fill="currentColor" stroke="none" /><circle cx="15.3" cy="11.7" r=".95" fill="currentColor" stroke="none" /></>,
-)
-
 /**
- * Floating bottom dock — mobile only (hidden from 761px up, where the
- * header nav takes over).
+ * Floating bottom dock — mobile only (hidden from 761px up, where the desktop
+ * pill nav takes over).
  *
  * The active chip is a single absolutely-positioned element that slides
- * between items: its x/width are measured only when the route changes or
- * the viewport resizes — never on scroll — and CSS carries the motion with
- * an overshoot easing, so it glides like a spring without a per-frame loop.
+ * between items: its x/width are measured only when the route changes, when
+ * the item's entrance animation ends, when the pill resizes, or on viewport
+ * resize — never on scroll — and CSS carries the motion with an overshoot
+ * easing, so it glides like a spring without a per-frame loop.
  */
 export function BottomNav() {
   const pathname = usePathname()
@@ -99,7 +92,7 @@ export function BottomNav() {
               style={{ '--i': i } as React.CSSProperties}
             >
               <span className="mdock__icon" aria-hidden="true">
-                {item.icon}
+                <item.Icon size={22} strokeWidth={1.7} />
               </span>
             </Link>
           )
@@ -112,7 +105,7 @@ export function BottomNav() {
         aria-label="Talk to us"
         title="Talk to us"
       >
-        {chatIcon}
+        <Chat size={21} strokeWidth={1.8} aria-hidden="true" />
       </Link>
     </nav>
   )
