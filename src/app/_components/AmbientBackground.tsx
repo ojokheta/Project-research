@@ -33,8 +33,8 @@ export function AmbientBackground() {
     const dpr = Math.min(window.devicePixelRatio || 1, small ? 1 : 1.5)
     const frameGap = small ? 1000 / 30 : 0
 
-    // Soft brand-adjacent pastels — deliberately desaturated so copy stays legible.
-    const palette = ['#e8e4ff', '#d7d0ff', '#ffe1d0', '#dcf1e4', '#cfc7ff', '#fff1c9']
+    // Soft emerald/lime brand tints — deliberately desaturated so copy stays legible.
+    const palette = ['#dff2e2', '#c9e9d2', '#eef7d0', '#d3efe0', '#cfe7d4', '#f2f8de']
     const blobs: Blob[] = Array.from({ length: small ? 4 : 7 }, (_, i) => ({
       x: Math.random(),
       y: Math.random(),
