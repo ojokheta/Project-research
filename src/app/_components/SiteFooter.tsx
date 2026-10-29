@@ -120,7 +120,7 @@ export function SiteFooter() {
       </div>
 
       {/* ── wavy banner + stickers (decorative) ───────────────────────── */}
-      <div className="site-footer__banner" aria-hidden="true">
+      <div className="site-footer__banner" data-reveal-pop-root="" aria-hidden="true">
         <svg
           className="site-footer__wave"
           viewBox="0 0 1440 240"

@@ -75,20 +75,29 @@ export function ScrollFx() {
       })
 
       // ── Sticker pops ───────────────────────────────────────────────────
-      // Footer banner graphics scale up from 0 with a rotation swing, so they
-      // "pop" exactly once as they scroll into view. The attribute value is the
-      // starting rotation in degrees; the element's own CSS transform is the
-      // resting state GSAP animates back to.
-      gsap.utils.toArray<HTMLElement>('[data-reveal-pop]').forEach((el) => {
-        gsap.from(el, {
+      // Footer banner graphics scale up from 0 with a rotation swing, staggered
+      // as the banner scrolls into view. Each attribute value is that sticker's
+      // starting rotation in degrees; its own CSS transform is the resting state
+      // GSAP animates back to.
+      //
+      // The trigger is deliberately the *container* (`[data-reveal-pop-root]`),
+      // never the sticker itself: the from-tween scales the sticker to 0, which
+      // collapses its own ScrollTrigger rect to a point and makes the start
+      // position unreliable. The banner keeps a real box, so the trigger is stable.
+      const popEls = gsap.utils.toArray<HTMLElement>('[data-reveal-pop]')
+      if (popEls.length) {
+        const popRoot =
+          popEls[0].closest<HTMLElement>('[data-reveal-pop-root]') || popEls[0]
+        gsap.from(popEls, {
           scale: 0,
-          rotate: Number(el.dataset.revealPop) || -18,
+          rotate: (_i, target: HTMLElement) => Number(target.dataset.revealPop) || -18,
           autoAlpha: 0,
-          duration: 0.9,
+          duration: 0.85,
           ease: 'back.out(1.9)',
-          scrollTrigger: { trigger: el, start: 'top 96%', toggleActions: 'play none none none' },
+          stagger: 0.12,
+          scrollTrigger: { trigger: popRoot, start: 'top bottom', toggleActions: 'play none none none' },
         })
-      })
+      }
 
       // ── Parallax ─────────────────────────────────────────────────────────
       gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((el) => {
