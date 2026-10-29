@@ -156,8 +156,73 @@ h1 em { font-style: normal; color: var(--brand-lime) }
 .join form { max-width: 470px; margin: auto; display: flex; gap: 10px }
 .join input { flex: 1; border: 1px solid var(--line); border-radius: 999px; padding: 15px 20px; font: inherit; background: var(--surface); color: var(--ink) }
 .join input:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px }
-footer { padding: 42px 28px; max-width: 1120px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 25px; color: var(--body-on-light); font-size: 13px }
-footer .logo { color: var(--ink) }
+/* ==========================================================================
+   Site footer — deep brand-green container · pill columns · wavy lime banner
+   ========================================================================== */
+.site-footer { position: relative; background: var(--brand-deep); color: var(--white); overflow: hidden; border-top: 1px solid rgba(163, 230, 53, .25) }
+.site-footer__inner { max-width: 1120px; margin: auto; padding: 74px 28px 0 }
+.site-footer__grid { display: grid; grid-template-columns: 1.45fr 1fr 1fr 1.15fr; gap: 46px }
+.site-footer__col { min-width: 0 }
+/* brand column — wordmark reads white on the deep green surface */
+.site-footer .logo { display: inline-block; color: var(--white); font-size: 15px; letter-spacing: 2px }
+.site-footer .logo strong { font-size: 23px; letter-spacing: 5px }
+.site-footer__blurb { margin: 20px 0 0; max-width: 340px; color: var(--muted); font-size: 14.5px; line-height: 1.65 }
+.site-footer__motto { margin: 18px 0 0; color: var(--brand-lime); font-size: 11.5px; font-weight: 800; letter-spacing: 2.2px }
+/* white pill tags label each column */
+.site-footer__tag { display: inline-block; padding: 7px 16px; border-radius: 999px; background: var(--white); color: var(--brand-deep); font-size: 13px; font-weight: 800; box-shadow: 0 8px 18px rgba(3, 26, 12, .28) }
+/* link columns */
+.site-footer__links { list-style: none; display: grid; gap: 10px; margin: 20px 0 0; padding: 0 }
+.site-footer__links a { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 15px; font-weight: 600; transition: color .25s ease, transform .3s cubic-bezier(.34, 1.4, .5, 1) }
+.site-footer__links a:hover { color: var(--brand-lime); transform: translateX(5px) }
+.site-footer__links a:focus-visible { outline: 2px solid var(--brand-lime); outline-offset: 3px; border-radius: 6px }
+.site-footer__qr svg { color: var(--brand-lime); flex: 0 0 auto }
+/* connect column */
+.site-footer__note { margin: 20px 0 0; color: var(--muted); font-size: 14px; line-height: 1.6 }
+.site-footer__cta { margin-top: 20px }
+.site-footer__social { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 20px }
+.site-footer__social a { display: inline-flex; align-items: center; gap: 6px; padding: 9px 15px; border-radius: 999px; background: var(--white); color: var(--brand-deep); font-size: 13px; font-weight: 800; box-shadow: 0 8px 18px rgba(3, 26, 12, .3); transition: transform .35s cubic-bezier(.34, 1.5, .5, 1), background .25s ease }
+.site-footer__social a:hover { background: var(--brand-lime); transform: translateY(-3px) rotate(-2deg) }
+.site-footer__social a:focus-visible { outline: 2px solid var(--brand-lime); outline-offset: 3px }
+.site-footer__social span { font-size: 12px }
+/* meta row */
+.site-footer__meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 26px; margin-top: 54px; padding: 20px 0 0; border-top: 1px solid rgba(255, 255, 255, .14); color: var(--muted); font-size: 13px }
+.site-footer__meta p { margin: 0 }
+/* ── wavy banner ──────────────────────────────────────────────────────── */
+.site-footer__banner { position: relative; height: clamp(240px, 26vw, 330px); margin-top: 34px }
+.site-footer__wave { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 62%; display: block }
+.site-footer__stage { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 18px; pointer-events: none }
+/* ── stickers ─────────────────────────────────────────────────────────── */
+.sticker { position: absolute; z-index: 2; pointer-events: none; will-change: transform, opacity }
+/* main sticker — UI gate cut-out in a white photo-sticker frame */
+.sticker--tower { position: relative; z-index: 3; width: clamp(168px, 21vw, 246px); padding: 10px; background: var(--white); border-radius: 20px; transform: rotate(-3deg); box-shadow: 0 26px 55px rgba(3, 26, 12, .45), 0 6px 14px rgba(3, 26, 12, .3) }
+.sticker--tower img { display: block; width: 100%; height: auto; border-radius: 11px }
+/* lime starburst — same cut-path on wrapper + core so the white edge reads as a sticker outline */
+.sticker--burst { left: 7%; bottom: 96px; width: clamp(96px, 11vw, 132px); aspect-ratio: 1; padding: 6px; background: var(--white); transform: rotate(-10deg); filter: drop-shadow(0 16px 24px rgba(3, 26, 12, .4)); clip-path: polygon(50% 0%, 62.6% 19.5%, 85.4% 14.6%, 80.5% 37.4%, 100% 50%, 80.5% 62.6%, 85.4% 85.4%, 62.6% 80.5%, 50% 100%, 37.4% 80.5%, 14.6% 85.4%, 19.5% 62.6%, 0% 50%, 19.5% 37.4%, 14.6% 14.6%, 37.4% 19.5%) }
+.sticker--burst > span { display: grid; place-items: center; width: 100%; height: 100%; background: var(--brand-lime); color: var(--brand-deep); font-size: clamp(11px, 1.2vw, 14px); font-weight: 900; line-height: 1.05; letter-spacing: -.4px; text-align: center; text-transform: uppercase; clip-path: polygon(50% 0%, 62.6% 19.5%, 85.4% 14.6%, 80.5% 37.4%, 100% 50%, 80.5% 62.6%, 85.4% 85.4%, 62.6% 80.5%, 50% 100%, 37.4% 80.5%, 14.6% 85.4%, 19.5% 62.6%, 0% 50%, 19.5% 37.4%, 14.6% 14.6%, 37.4% 19.5%) }
+/* round badge */
+.sticker--round { right: 9%; bottom: 104px; width: clamp(88px, 9vw, 116px); aspect-ratio: 1; display: grid; align-content: center; justify-items: center; gap: 1px; padding: 8px; border-radius: 50%; background: var(--brand); border: 5px solid var(--white); box-shadow: 0 18px 34px rgba(3, 26, 12, .4); transform: rotate(12deg); text-align: center }
+.sticker--round strong { display: block; color: var(--brand-lime); font-size: clamp(19px, 2.2vw, 27px); letter-spacing: -1.5px; line-height: 1 }
+.sticker--round span { display: block; color: var(--white); font-size: 9.5px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase }
+/* white pill sticker riding the lime wave */
+.sticker--pill { right: 6%; bottom: 26px; padding: 11px 19px; border-radius: 999px; background: var(--brand-deep); color: var(--brand-lime); font-size: 13px; font-weight: 800; white-space: nowrap; box-shadow: 0 14px 30px rgba(3, 26, 12, .35); transform: rotate(-5deg); border: 1px solid rgba(163, 230, 53, .5) }
+/* footer responsive */
+@media (max-width: 1024px) {
+  .site-footer__grid { grid-template-columns: 1fr 1fr; gap: 40px 36px }
+  .site-footer__brand { grid-column: 1 / -1 }
+}
+@media (max-width: 760px) {
+  .site-footer__inner { padding-top: 58px }
+  .site-footer__grid { grid-template-columns: 1fr; gap: 34px }
+  .site-footer__brand { grid-column: auto }
+  .site-footer__meta { flex-direction: column; margin-top: 42px }
+  /* banner keeps its full graphic but lifts clear of the floating dock */
+  .site-footer__banner { height: 300px; margin-top: 26px }
+  .site-footer__stage { padding-bottom: 86px }
+  .sticker--tower { width: clamp(150px, 44vw, 190px); padding: 8px; border-radius: 16px }
+  .sticker--burst { left: 4%; bottom: 150px; width: 84px }
+  .sticker--round { right: 4%; bottom: 162px; width: 78px; border-width: 4px }
+  .sticker--pill { left: 4%; right: auto; top: 4px; bottom: auto; padding: 9px 15px; font-size: 12px; transform: rotate(-4deg) }
+}
 
 /* ==========================================================================
    Interior routes — InfoPage (About / Purpose / Get help / Get involved)
@@ -216,7 +281,6 @@ footer .logo { color: var(--ink) }
   .statement { gap: 45px }
   .about, .resources, .faq { padding: 82px 22px }
   .join form { flex-direction: column }
-  footer { flex-direction: column; align-items: flex-start }
 }
 @media (max-width: 760px) {
   .vision-mission, .purpose { grid-template-columns: 1fr }
@@ -246,7 +310,6 @@ footer .logo { color: var(--ink) }
 .mdock__fab:focus-visible { outline: 2px solid var(--brand-lime); outline-offset: 3px }
 @media (min-width: 761px) { .mdock { display: none } }
 @media (prefers-reduced-motion: reduce) { .mdock, .mdock__fab, .mdock__item { animation: none !important } .mdock, .mdock__chip, .mdock__icon, .mdock__item, .mdock__fab { transition-duration: .01ms !important } }
-@media (max-width: 760px) { footer { padding-bottom: 112px } }
 
 /* ==========================================================================
    Ambient fog backdrop (canvas, mounted in root layout)

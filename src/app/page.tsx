@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { ArrowRight, Health, HeartHand, Stethoscope } from 'reicon-react'
 import { Marquee } from './_components/Marquee'
 import { Float, SpringCard } from './_components/Motion'
+import { SiteFooter } from './_components/SiteFooter'
 
 const cards = [
   ['Prevent before crisis', 'Deliver practical, evidence-informed education before harmful use escalates.', '01'],
@@ -32,6 +33,6 @@ export default function Home() {
     <section id="resources" className="resources" data-reveal="30"><p className="eyebrow">Approved support pathways</p><h2>Know where to turn.</h2><div className="resource-row" data-reveal-group=""><SpringCard data-reveal-child=""><i data-anime-icon=""><Health size={22} /></i><h3>CDCC Counselling</h3><p>Confidential professional support through the Career Development &amp; Counselling Centre, Student Affairs Division, University of Ibadan.</p></SpringCard><SpringCard data-reveal-child=""><i data-anime-icon=""><HeartHand size={22} /></i><h3>RESET Connect</h3><p>A low-pressure, confidential first conversation with a trained student peer advocate—not a clinician, but a safe first step.</p></SpringCard><SpringCard data-reveal-child=""><i data-anime-icon=""><Stethoscope size={22} /></i><h3>University Health Services</h3><p>Campus medical support and an approved clinical escalation pathway for students who need professional or emergency care.</p></SpringCard></div></section>
     <section className="faq" data-reveal="28"><p className="eyebrow">FAQ</p><h2>Questions deserve straight answers.</h2>{faqs.map(([q,a],i)=><article key={q}><button onClick={()=>setOpen(open===i?-1:i)}>{q}<b>{open===i?'−':'+'}</b></button>{open===i&&<p>{a}</p>}</article>)}</section>
     <section id="contact" className="join" data-reveal="28"><p className="eyebrow">Join the conversation</p><h2>You don't have to work it all out alone.</h2><p>Reach the RESET desk for a private, non-judgmental first conversation. Messages go to the coordination desk—not a public inbox. In an emergency, contact campus security or University Health Services directly.</p><form onSubmit={e=>e.preventDefault()}><input aria-label="Your email" placeholder="Your email address" type="email"/><button className="primary-button">Reach out →</button></form></section>
-    <footer><a className="logo" href="#top">PROJECT <strong>RE<span>S</span>ET</strong></a><p>© 2026 Project RESET · University of Ibadan · CDCC · Student Affairs Division</p><p>In an emergency, contact campus security or local emergency services immediately.</p></footer>
+    <SiteFooter />
   </main>
 }

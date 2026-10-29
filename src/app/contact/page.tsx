@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
+import { SiteFooter } from '../_components/SiteFooter'
 
 /**
  * Contact — themed with the same emerald brand system as the rest of the site
@@ -115,11 +116,7 @@ export default function ContactPage() {
                 </aside>
             </section>
 
-            <footer>
-                <a className="logo" href="/">PROJECT <strong>RE<span>S</span>ET</strong></a>
-                <p>© 2026 Project RESET · University of Ibadan · CDCC, Student Affairs Division</p>
-                <p>In an emergency, contact campus security or local emergency services immediately.</p>
-            </footer>
+            <SiteFooter />
         </main>
     )
 }

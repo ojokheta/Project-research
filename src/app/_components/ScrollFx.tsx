@@ -21,6 +21,8 @@ const stopAnime = (anim: { pause?: () => void; revert?: () => void }) => {
  *
  * GSAP + ScrollTrigger:
  * - `[data-reveal]`             → fade + rise as the element enters the viewport
+ * - `[data-reveal-pop="<from°>"]` → springy sticker pop (scale 0 → 1 with a
+ *                                  rotation swing) for the footer banner graphics
  * - `[data-reveal-group]`        → children marked `[data-reveal-child]` stagger
  *                                  in (opacity only, so React Spring owns the
  *                                  transforms on interactive cards — no fighting
@@ -69,6 +71,22 @@ export function ScrollFx() {
           ease: 'power2.out',
           stagger: 0.09,
           scrollTrigger: { trigger: group, start: 'top 84%', toggleActions: 'play none none none' },
+        })
+      })
+
+      // ── Sticker pops ───────────────────────────────────────────────────
+      // Footer banner graphics scale up from 0 with a rotation swing, so they
+      // "pop" exactly once as they scroll into view. The attribute value is the
+      // starting rotation in degrees; the element's own CSS transform is the
+      // resting state GSAP animates back to.
+      gsap.utils.toArray<HTMLElement>('[data-reveal-pop]').forEach((el) => {
+        gsap.from(el, {
+          scale: 0,
+          rotate: Number(el.dataset.revealPop) || -18,
+          autoAlpha: 0,
+          duration: 0.9,
+          ease: 'back.out(1.9)',
+          scrollTrigger: { trigger: el, start: 'top 96%', toggleActions: 'play none none none' },
         })
       })
 
