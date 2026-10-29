@@ -30,7 +30,6 @@ export default function ContactPage() {
             </header>
 
             <section className="inner-hero" data-reveal="30">
-                <p className="eyebrow">Contact · RESET coordination desk</p>
                 <h1>Write to us. <em>We treat it as private.</em></h1>
                 <p>
                     For a confidential first conversation, volunteering or partnership.

@@ -82,13 +82,15 @@ nav { display: flex; gap: 32px; font-size: 14px }
    Home — hero
    ========================================================================== */
 .hero { min-height: 660px; background: linear-gradient(120deg, var(--brand-deep), var(--brand)); color: var(--white); display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 80px max(28px, calc((100% - 1120px) / 2)); overflow: hidden }
-.hero-copy { max-width: 550px }
-.eyebrow { text-transform: uppercase; letter-spacing: 2px; color: var(--brand); font-size: 12px; font-weight: 800 }
-/* Eyebrows on dark green surfaces use the lime accent (6.6:1 on #0A4D23) */
-.hero .eyebrow, .inner-hero .eyebrow, .statement .eyebrow, .purpose .eyebrow, .join .eyebrow, .vision-mission article .eyebrow { color: var(--brand-lime) }
-h1 { font-size: clamp(55px, 6.5vw, 86px); line-height: .96; letter-spacing: -5px; margin: 20px 0 26px }
+.hero-copy { max-width: 660px }
+/* Display type is sized so long headings resolve to two lines instead of three:
+   tracking scales with the font (-.045em instead of a fixed -5px), the cap is
+   lowered, and `.hero h1` keeps `white-space: nowrap` so the <br> is the only
+   break the hero heading can take. */
+h1 { font-size: clamp(28px, 4.4vw, 58px); line-height: 1.04; letter-spacing: -.045em; margin: 0 0 24px }
 h1 em { font-style: normal; color: var(--brand-lime) }
-.hero-copy > p:not(.eyebrow) { font-size: 19px; line-height: 1.6; max-width: 470px; margin-bottom: 34px; color: var(--muted) }
+.hero h1 { white-space: nowrap }
+.hero-copy > p { font-size: 19px; line-height: 1.6; max-width: 470px; margin-bottom: 34px; color: var(--muted) }
 .hero-art { height: 430px; position: relative }
 /* Lime sun sits on the vibrant end of the hero gradient, where green would vanish */
 .sun { position: absolute; background: var(--brand-lime); border-radius: 50%; width: 320px; height: 320px; right: 40px; top: 20px; box-shadow: 0 0 0 38px rgba(163, 230, 53, .14) }
@@ -104,7 +106,10 @@ h1 em { font-style: normal; color: var(--brand-lime) }
    Home — about / cards / marquee band
    ========================================================================== */
 .about, .resources, .faq { max-width: 1120px; margin: auto; padding: 120px 28px; text-align: center }
-.about h2, .resources h2, .faq h2, .join h2, .statement h2 { font-size: clamp(38px, 5vw, 64px); letter-spacing: -3px; line-height: 1.02; margin: 16px auto 20px; max-width: 760px }
+/* Primary section headers — a shared two-line layout: wider measure (940px
+   instead of 760px) plus a slightly smaller cap lets every one of them settle
+   into clean, balanced two-line blocks. */
+.about h2, .resources h2, .faq h2, .join h2 { font-size: clamp(26px, 5vw, 56px); letter-spacing: -.04em; line-height: 1.06; margin: 0 auto 20px; max-width: 940px; text-wrap: balance }
 .center-copy { max-width: 580px; margin: 0 auto 54px; color: var(--body-on-light); line-height: 1.6 }
 .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; text-align: left }
 /* Cards sit on deep brand green — white headings, gray-green body, lime accents */
@@ -119,15 +124,18 @@ h1 em { font-style: normal; color: var(--brand-lime) }
    Home — vision / mission + purpose (dark green panels)
    ========================================================================== */
 .vision-mission { display: grid; grid-template-columns: 1fr 1fr }
-.vision-mission article { padding: 100px max(28px, calc((100vw - 1120px) / 4)); background: var(--brand-deep); color: var(--on-dark) }
+.vision-mission article { padding: 100px max(32px, calc((100vw - 1240px) / 4)); background: var(--brand-deep); color: var(--on-dark) }
 .vision-mission article + article { background: var(--lilac); color: var(--ink) }
-.vision-mission article + article .eyebrow { color: var(--brand) }
-.vision-mission h2 { font-size: clamp(36px, 4vw, 58px); line-height: 1.03; letter-spacing: -3px; margin: 17px 0 }
-.vision-mission p:not(.eyebrow) { line-height: 1.65; font-size: 17px; color: var(--muted) }
-.vision-mission article + article p:not(.eyebrow) { color: var(--body-on-light) }
-.purpose { background: linear-gradient(120deg, var(--brand-deep), var(--brand)); color: var(--white); padding: 110px max(28px, calc((100% - 1120px) / 2)); display: grid; grid-template-columns: .9fr 1fr; gap: 100px }
-.purpose h2 { font-size: clamp(38px, 5vw, 64px); line-height: 1.03; letter-spacing: -3px; margin: 17px 0 }
-.purpose > div > p:not(.eyebrow) { line-height: 1.65; font-size: 17px; color: var(--muted) }
+.vision-mission h2 { font-size: clamp(24px, 2.8vw, 40px); line-height: 1.07; letter-spacing: -.04em; margin: 0 0 17px; max-width: 620px; text-wrap: balance }
+.vision-mission p { line-height: 1.65; font-size: 17px; color: var(--muted) }
+.vision-mission article + article p { color: var(--body-on-light) }
+.purpose { background: linear-gradient(120deg, var(--brand-deep), var(--brand)); color: var(--white); padding: 110px max(28px, calc((100% - 1120px) / 2)); display: grid; grid-template-columns: .9fr 1fr; column-gap: 100px; row-gap: 38px }
+/* The headline spans both columns — in a half-width column it could never wrap
+   into two lines at display size, so it now sits full width above the content.
+   The 15em measure is relative to the font size, so the two-line break holds at
+   every breakpoint instead of collapsing to one line on narrower screens. */
+.purpose h2 { grid-column: 1 / -1; font-size: clamp(26px, 5vw, 56px); line-height: 1.06; letter-spacing: -.04em; margin: 0; max-width: 15em; text-wrap: balance }
+.purpose > div > p { line-height: 1.65; font-size: 17px; color: var(--muted) }
 .purpose ul { list-style: none; margin: 0; padding: 0 }
 .purpose li { display: grid; gap: 7px; padding: 22px 0; border-top: 1px solid rgba(255, 255, 255, .23) }
 .purpose li b { color: var(--brand-lime); font-size: 19px }
@@ -136,8 +144,8 @@ h1 em { font-style: normal; color: var(--brand-lime) }
 /* ==========================================================================
    Home — statement / resources / FAQ / join
    ========================================================================== */
-.statement { padding: 115px max(28px, calc((100% - 1120px) / 2)); background: var(--brand-deep); color: var(--white); display: grid; grid-template-columns: .85fr 1fr; gap: 100px }
-.statement h2 { margin-left: 0 }
+.statement { padding: 115px max(28px, calc((100% - 1120px) / 2)); background: var(--brand-deep); color: var(--white); display: grid; grid-template-columns: .85fr 1fr; column-gap: 100px; row-gap: 38px }
+.statement h2 { grid-column: 1 / -1; font-size: clamp(26px, 5vw, 56px); line-height: 1.06; letter-spacing: -.04em; margin: 0; max-width: 15em; text-wrap: balance }
 .statement ol { margin: 0; padding: 0; list-style: none }
 .statement li { display: grid; grid-template-columns: 70px 1fr; padding: 24px 0; border-top: 1px solid rgba(255, 255, 255, .17) }
 .statement li b { color: var(--brand-lime) }
@@ -152,7 +160,7 @@ h1 em { font-style: normal; color: var(--brand-lime) }
 .faq button:hover { color: var(--brand) }
 .faq article p { max-width: 620px; line-height: 1.6; color: var(--body-on-light); padding-bottom: 22px }
 .join { background: linear-gradient(120deg, var(--brand-deep), var(--brand)); color: var(--white); text-align: center; padding: 110px 28px }
-.join > p:not(.eyebrow) { color: var(--muted); max-width: 500px; margin: 0 auto 28px; line-height: 1.6 }
+.join > p { color: var(--muted); max-width: 500px; margin: 0 auto 28px; line-height: 1.6 }
 .join form { max-width: 470px; margin: auto; display: flex; gap: 10px }
 .join input { flex: 1; border: 1px solid var(--line); border-radius: 999px; padding: 15px 20px; font: inherit; background: var(--surface); color: var(--ink) }
 .join input:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px }
@@ -228,16 +236,18 @@ h1 em { font-style: normal; color: var(--brand-lime) }
    Interior routes — InfoPage (About / Purpose / Get help / Get involved)
    ========================================================================== */
 .inner-hero { padding: 110px max(28px, calc((100% - 1120px) / 2)) 90px; background: linear-gradient(130deg, var(--brand-deep), var(--brand)); color: var(--white) }
-.inner-hero h1 { max-width: 850px; margin-bottom: 22px }
+.inner-hero h1 { max-width: 940px; margin-bottom: 22px }
 .inner-hero h1 em { font-style: normal; color: var(--brand-lime) }
-.inner-hero > p:not(.eyebrow) { max-width: 700px; font-size: 19px; line-height: 1.6; color: var(--muted) }
+.inner-hero > p { max-width: 700px; font-size: 19px; line-height: 1.6; color: var(--muted) }
 .info-section { max-width: 1120px; margin: auto; padding: 100px 28px; display: grid; grid-template-columns: .75fr 1.25fr; gap: 100px }
 .info-section:nth-of-type(even) { background: var(--soft); max-width: none; padding-left: max(28px, calc((100% - 1120px) / 2)); padding-right: max(28px, calc((100% - 1120px) / 2)) }
 .section-intro { font-size: 18px; line-height: 1.65; color: var(--body-on-light); max-width: 360px }
+/* Section group label — replaced the old small-caps eyebrow */
+.info-group { font-size: clamp(22px, 2.4vw, 30px); font-weight: 800; letter-spacing: -.03em; line-height: 1.15; margin: 0 0 14px; color: var(--ink) }
 .info-list { border-top: 1px solid var(--line) }
 .info-list article { display: grid; grid-template-columns: 56px 1fr; column-gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--line) }
 .info-list span { grid-row: span 2; color: var(--brand); font-size: 12px; font-weight: 800; letter-spacing: 1px }
-.info-list h2 { font-size: 22px; letter-spacing: -1px; margin: 0 }
+.info-list h3 { font-size: 22px; letter-spacing: -1px; margin: 0 }
 .info-list p { grid-column: 2; color: var(--body-on-light); line-height: 1.6; margin: 7px 0 0 }
 
 /* ==========================================================================
@@ -271,7 +281,12 @@ h1 em { font-style: normal; color: var(--brand-lime) }
    ========================================================================== */
 @media (max-width: 760px) {
   nav { display: none }
-  .header { height: 68px }
+  /* The in-flow header now paints solid brand green, so the page opens on green
+     top-to-bottom instead of a white strip above the hero. */
+  .header { height: 68px; background: var(--brand-deep) }
+  .header .logo { color: var(--white) }
+  .header .outline-button { border-color: rgba(255, 255, 255, .55); color: var(--white) }
+  .header .outline-button:hover { background: rgba(255, 255, 255, .12); border-color: var(--brand-lime); color: var(--brand-lime) }
   .hero { grid-template-columns: 1fr; padding-top: 66px }
   .hero-art { height: 290px; margin-top: 40px }
   .sun { width: 230px; height: 230px; right: 10px }
@@ -335,7 +350,7 @@ h1 em { font-style: normal; color: var(--brand-lime) }
 .topnav__cta { padding: 11px 18px; font-size: 13px }
 .topnav__cta svg { transition: transform .3s ease }
 .topnav__cta:hover svg { transform: scale(1.15) rotate(-6deg) }
-@media (min-width: 761px) { .topnav { display: block } .header { display: none } body { padding-top: 96px } }
+@media (min-width: 761px) { .topnav { display: block } .header { display: none } }
 @media (prefers-reduced-motion: no-preference) { .topnav [data-intro], .hero-copy [data-intro] { animation: ui-in .75s cubic-bezier(.22, 1, .36, 1) both; animation-delay: calc(var(--i, 0) * 80ms + 140ms) } }
 
 /* ==========================================================================
