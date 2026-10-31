@@ -176,8 +176,8 @@ h1 em { font-style: normal; color: var(--brand-lime) }
 .site-footer .logo strong { font-size: 23px; letter-spacing: 5px }
 .site-footer__blurb { margin: 20px 0 0; max-width: 340px; color: var(--muted); font-size: 14.5px; line-height: 1.65 }
 .site-footer__motto { margin: 18px 0 0; color: var(--brand-lime); font-size: 11.5px; font-weight: 800; letter-spacing: 2.2px }
-/* white pill tags label each column */
-.site-footer__tag { display: inline-block; padding: 7px 16px; border-radius: 999px; background: var(--white); color: var(--brand-deep); font-size: 13px; font-weight: 800; box-shadow: 0 8px 18px rgba(3, 26, 12, .28) }
+/* plain column headers — no pill, no white background */
+.site-footer__tag { display: inline-block; color: var(--white); font-size: 13px; font-weight: 800; letter-spacing: 2.4px; text-transform: uppercase }
 /* link columns */
 .site-footer__links { list-style: none; display: grid; gap: 10px; margin: 20px 0 0; padding: 0 }
 .site-footer__links a { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 15px; font-weight: 600; transition: color .25s ease, transform .3s cubic-bezier(.34, 1.4, .5, 1) }
@@ -187,11 +187,12 @@ h1 em { font-style: normal; color: var(--brand-lime) }
 /* connect column */
 .site-footer__note { margin: 20px 0 0; color: var(--muted); font-size: 14px; line-height: 1.6 }
 .site-footer__cta { margin-top: 20px }
-.site-footer__social { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 20px }
-.site-footer__social a { display: inline-flex; align-items: center; gap: 6px; padding: 9px 15px; border-radius: 999px; background: var(--white); color: var(--brand-deep); font-size: 13px; font-weight: 800; box-shadow: 0 8px 18px rgba(3, 26, 12, .3); transition: transform .35s cubic-bezier(.34, 1.5, .5, 1), background .25s ease }
-.site-footer__social a:hover { background: var(--brand-lime); transform: translateY(-3px) rotate(-2deg) }
-.site-footer__social a:focus-visible { outline: 2px solid var(--brand-lime); outline-offset: 3px }
-.site-footer__social span { font-size: 12px }
+/* social icons — bare glyphs, colour-change hover only */
+.site-footer__social { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 22px }
+.site-footer__social a { display: inline-flex; align-items: center; color: var(--white); transition: color .25s ease }
+.site-footer__social a:hover { color: var(--brand-lime) }
+.site-footer__social a:focus-visible { outline: 2px solid var(--brand-lime); outline-offset: 4px; border-radius: 6px }
+.site-footer__social svg { display: block }
 /* meta row */
 .site-footer__meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 26px; margin-top: 54px; padding: 20px 0 0; border-top: 1px solid rgba(255, 255, 255, .14); color: var(--muted); font-size: 13px }
 .site-footer__meta p { margin: 0 }
@@ -249,6 +250,23 @@ h1 em { font-style: normal; color: var(--brand-lime) }
 .info-list span { grid-row: span 2; color: var(--brand); font-size: 12px; font-weight: 800; letter-spacing: 1px }
 .info-list h3 { font-size: 22px; letter-spacing: -1px; margin: 0 }
 .info-list p { grid-column: 2; color: var(--body-on-light); line-height: 1.6; margin: 7px 0 0 }
+/* ==========================================================================
+   Mission & Vision — pinned sticky reveal blocks (Purpose page)
+   ========================================================================== */
+.mv { background: var(--brand-deep); color: var(--white) }
+.mv-block { position: relative; height: 260vh }
+.mv-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; align-items: center; overflow: hidden }
+.mv-row { display: grid; grid-template-columns: 1fr 1.15fr; gap: 70px; align-items: center; width: 100%; max-width: 1120px; margin: auto; padding: 0 28px }
+.mv-copy { grid-column: 1; grid-row: 1; min-width: 0 }
+.mv-title { grid-column: 2; grid-row: 1; margin: 0; font-size: clamp(58px, 10.5vw, 148px); font-weight: 900; letter-spacing: -.04em; line-height: .92; color: var(--white); text-align: right }
+/* vision swaps the columns — header left, subtitle right */
+.mv-block--flip .mv-copy { grid-column: 2 }
+.mv-block--flip .mv-title { grid-column: 1; text-align: left }
+.mv-kicker { display: block; color: var(--brand-lime); font-size: 12.5px; font-weight: 800; letter-spacing: 2.4px; text-transform: uppercase }
+.mv-heading { margin: 14px 0 0; font-size: clamp(24px, 2.6vw, 34px); font-weight: 800; letter-spacing: -.02em; line-height: 1.15 }
+.mv-copy__body { margin: 20px 0 0; max-width: 480px; color: var(--muted); font-size: clamp(15.5px, 1.4vw, 18px); line-height: 1.7 }
+.mv-word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .12em; margin-bottom: -.12em }
+.mv-word__in { display: inline-block; will-change: transform }
 
 /* ==========================================================================
    Contact
@@ -274,6 +292,12 @@ h1 em { font-style: normal; color: var(--brand-lime) }
   .info-section, .contact-layout { grid-template-columns: 1fr; gap: 38px; padding-top: 65px; padding-bottom: 65px }
   .inner-hero { padding-top: 75px; padding-bottom: 65px }
   .contact-layout { padding-bottom: 75px }
+  /* mission/vision pin: stack title above the copy, keep the scrub reveal */
+  .mv-block { height: 220vh }
+  .mv-row { grid-template-columns: 1fr; gap: 26px; align-content: center }
+  .mv-title { grid-column: 1; grid-row: 1; font-size: clamp(52px, 16vw, 84px); text-align: left }
+  .mv-copy, .mv-block--flip .mv-copy { grid-column: 1; grid-row: 2 }
+  .mv-block--flip .mv-title { grid-column: 1; grid-row: 1 }
 }
 
 /* ==========================================================================
